@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PINO chúc mừng 20/10 — Chữ rơi liên tục</title>
+  <style>
+    :root{
+      --bg1: #fff4f9;
+      --bg2: #fffafc;
+      --accent: #d81b60;
+      --soft: #ff98b6;
+      --muted: #5a3b45;
+      --lotus-start: #ffd6e8;
+      --lotus-end: #ff4d94;
+    }
+
+    *{ box-sizing: border-box; margin:0; padding:0; }
+    html,body{
+      height:100%; width:100%;
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing:antialiased;
+      overflow:hidden;
+      background: linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:var(--muted);
+    }
+
+    .stage{
+      position:relative;
+      width:100%;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      user-select:none;
+    }
+
+    .shine{
+      position:absolute;
+      inset:-30% -30%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.65), rgba(255,255,255,0.06) 20%, transparent 40%);
+      filter: blur(18px);
+      z-index:0;
+      pointer-events:none;
+      animation: spinSlow 38s linear infinite;
+    }
+    @keyframes spinSlow { from{ transform: rotate(0deg) } to { transform: rotate(360deg) } }
+
+    #title{
+      position:absolute; left:50%; top:50%; transform: translate(-50%,-50%);
+      z-index:140;
+      font-family:"Georgia", serif;
+      font-size: clamp(36px, 6vw, 72px);
+      color: var(--accent);
+      text-align:center;
+      padding:14px 20px;
+      border-radius:12px;
+      cursor:pointer;
+      background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,248,250,0.92));
+      box-shadow: 0 20px 50px rgba(216,27,96,0.08), inset 0 -6px 16px rgba(255,255,255,0.6);
+      animation: titlePulse 1500ms ease-in-out infinite;
+    }
+    #title small{ display:block; margin-top:8px; font-weight:700; color:#7a4857; font-size:14px; }
+    @keyframes titlePulse { 0%{ transform: translate(-50%,-50%) scale(1) } 50%{ transform: translate(-50%,-50%) scale(1.03) } 100%{ transform: translate(-50%,-50%) scale(1) } }
+
+    .fadeHide{ animation: fadeHide 900ms ease forwards; }
+    @keyframes fadeHide { to { opacity:0; transform: translate(-50%,-50%) scale(1.12); filter: blur(.6px); } }
+
+    .airspace{ position:absolute; inset:0; z-index:90; pointer-events:none; }
+
+    .wish{
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%) translateY(-18vh);
+      white-space:nowrap;
+      font-weight:800;
+      font-size: clamp(14px, 2.2vw, 20px);
+      padding:8px 14px;
+      border-radius:10px;
+      background: rgba(255,255,255,0.98);
+      color: var(--accent);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06), inset 0 -6px 12px rgba(255,255,255,0.6);
+      opacity:0;
+      pointer-events:auto;
+      z-index:95;
+      text-align:center;
+      transition: filter .2s ease;
+    }
+
+    .wish.centerGlow{
+      background: linear-gradient(180deg, rgba(255,246,250,1), rgba(255,238,245,1));
+      color:#ff2d87;
+      filter: drop-shadow(0 8px 24px rgba(255,105,180,0.12));
+    }
+
+    .petal{
+      position:fixed;
+      width:14px;
+      height:18px;
+      border-radius:40% 60% 40% 60%;
+      pointer-events:none;
+      z-index:20;
+      opacity:0.92;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.05));
+    }
+
+    .spark{
+      position:fixed;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      pointer-events:none;
+      z-index:220;
+      background: radial-gradient(circle, #fff, rgba(255,255,255,0));
+    }
+
+    .fallingImage{
+      position:fixed;
+      width:120px;
+      height:120px;
+      border-radius:12px;
+      pointer-events:none;
+      z-index:180;
+      object-fit:cover;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      border: 3px solid rgba(255,255,255,0.9);
+    }
+
+    .lotusWrap{ 
+      position:absolute; 
+      left:50%; 
+      top:50%; 
+      transform: translate(-50%,-50%); 
+      z-index:160; 
+      pointer-events:none; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+    }
+    
+    .lotusSVG{ 
+      width:0; 
+      height:0; 
+      opacity:0; 
+      transform-origin:center; 
+      transition: width 1s ease, height 1s ease, opacity 0.8s ease; 
+      filter: drop-shadow(0 8px 24px rgba(255,105,180,0.3)); 
+    }
+    
+    .lotusSVG.show{ 
+      width:400px; 
+      height:400px; 
+      opacity:1;
+      animation: simpleGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes simpleGlow {
+      0%, 100% { 
+        filter: drop-shadow(0 8px 24px rgba(255,105,180,0.3)); 
+      }
+      50% { 
+        filter: drop-shadow(0 12px 32px rgba(255,105,180,0.5)); 
+      }
+    }
+    .lotusSVG.bloom{ 
+      animation: lotusGlow 2s ease-in-out infinite, lotusBloom 2s ease-out forwards;
+    }
+
+    @keyframes lotusGlow {
+      0%, 100% { 
+        filter: drop-shadow(0 0 40px rgba(255,105,180,0.6)) 
+                drop-shadow(0 0 80px rgba(138,43,226,0.4))
+                drop-shadow(0 0 120px rgba(0,191,255,0.3)); 
+      }
+      50% { 
+        filter: drop-shadow(0 0 60px rgba(255,105,180,0.8)) 
+                drop-shadow(0 0 100px rgba(138,43,226,0.6))
+                drop-shadow(0 0 140px rgba(0,191,255,0.5)); 
+      }
+    }
+
+    @keyframes lotusBloom {
+      0% {
+        transform: scale(0.3) rotate(-20deg);
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    .lotusPetal{ transition: fill .9s ease; }
+    
+    .lotusText{ 
+      position:absolute; 
+      left:50%; 
+      top:52%; 
+      transform: translate(-50%,-50%); 
+      font-family:"Georgia", serif; 
+      font-weight:900; 
+      color:#ff69b4; 
+      font-size: clamp(28px, 4.4vw, 56px); 
+      text-shadow: 0 12px 36px rgba(255,105,180,0.08); 
+      opacity:0; 
+      transition: opacity .6s ease, transform .6s ease; 
+      z-index:170; 
+    }
+    
+    .lotusText.show{ 
+      opacity:1; 
+      transform: translate(-50%,-48%); 
+    }
+
+    @media (max-width:640px){
+      .lotusSVG.show{ width:400px; height:400px; }
+      #title{ font-size: clamp(20px,8vw,36px); padding:10px; }
+      .wish{ font-size: clamp(12px, 3vw, 16px); padding:6px 10px; }
+      .lotusText{ font-size: clamp(24px, 6vw, 40px); }
+      .fallingImage{ width:80px; height:80px; }
+    }
+
+    @keyframes petalOpen {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes petalBloomOut {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotateX(-90deg);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.05) rotateX(0deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotateX(0deg);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="shine"></div>
+
+    <div id="title" role="button" tabindex="0">
+      ✨ PINO chúc mừng 20/10 ✨
+      <small>(Bấm vào để bắt đầu)</small>
+    </div>
+
+    <div class="airspace" id="airspace"></div>
+
+    <div class="lotusWrap" id="lotusWrap">
+      <svg class="lotusSVG" id="lotusSVG" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#fff9e6;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffd700;stop-opacity:0.9" />
+          </radialGradient>
+          
+          <linearGradient id="petalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffc0cb;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ff69b4;stop-opacity:0.95" />
+          </linearGradient>
+        </defs>
+        
+        <g transform="translate(150,150)">
+          <!-- Simple shadow -->
+          <ellipse rx="60" ry="20" fill="#000" opacity="0.15" transform="translate(0,12)"></ellipse>
+          
+          <!-- 8 petals only - simple and light -->
+          <g class="flowerPetals">
+            <!-- Petal 1 -->
+            <ellipse rx="35" ry="60" fill="url(#petalGradient)" opacity="0.95" transform="translate(0,-40) rotate(0)"></ellipse>
+            <!-- Petal 2 -->
+            <ellipse rx="35" ry="60" fill="url(#petalGradient)" opacity="0.95" transform="translate(0,-40) rotate(45)"></ellipse>
+            <!-- Petal 3 -->
+            <ellipse rx="35" ry="60" fill="url(#petalGradient)" opacity="0.95" transform="translate(0,-40) rotate(90)"></ellipse>
+            <!-- Petal 4 -->
+            <ellipse rx="35" ry="60" fill="url(#petalGradient)" opacity="0.95" transform="translate(0,-40) rotate(135)"></ellipse>
+            <!-- Petal 5 -->
+            <ellipse rx="35" ry="60" fill="url(#petalGradient)" opacity="0.95" transform="translate(0,-40) rotate(180)"></ellipse>
+            <!-- Petal 6 -->
+            <ellipse rx="35" ry="60" fill="url(#petalGradient)" opacity="0.95" transform="translate(0,-40) rotate(225)"></ellipse>
+            <!-- Petal 7 -->
+            <ellipse rx="35" ry="60" fill="url(#petalGradient)" opacity="0.95" transform="translate(0,-40) rotate(270)"></ellipse>
+            <!-- Petal 8 -->
+            <ellipse rx="35" ry="60" fill="url(#petalGradient)" opacity="0.95" transform="translate(0,-40) rotate(315)"></ellipse>
+          </g>
+
+          <!-- Center -->
+          <circle r="25" fill="url(#centerGlow)" opacity="0.95"></circle>
+          <circle r="18" fill="#ffd700"></circle>
+          
+          <!-- Simple dots -->
+          <circle cx="0" cy="-6" r="2" fill="#ff8c00"></circle>
+          <circle cx="-4" cy="-3" r="2" fill="#ff8c00"></circle>
+          <circle cx="4" cy="-3" r="2" fill="#ff8c00"></circle>
+          <circle cx="-5" cy="2" r="2" fill="#ff8c00"></circle>
+          <circle cx="0" cy="2" r="2" fill="#ff8c00"></circle>
+          <circle cx="5" cy="2" r="2" fill="#ff8c00"></circle>
+          <circle cx="-2" cy="6" r="2" fill="#ff8c00"></circle>
+          <circle cx="2" cy="6" r="2" fill="#ff8c00"></circle>
+        </g>
+      </svg>
+
+      <div class="lotusText" id="lotusText">XINH QUÁ</div>
+    </div>
+
+    <audio id="bgAudio" src="pino.mp3" preload="auto"></audio>
+  </div>
+
+  <script>
+    const WISHES = [
+      "Chúc mừng ngày Phụ nữ Việt Nam 20/10!",
+      "Chúc những bông hoa đẹp nhất luôn rạng rỡ!",
+      "Hãy luôn tự tin và tỏa sáng như đóa hoa sen!",
+      "Cảm ơn vì đã là người phụ nữ Việt Nam!",
+      "Chúc bạn có một ngày 20/10 thật đặc biệt!",
+      "Mỗi ngày đều là ngày của những người phụ nữ xinh đẹp!",
+      "Một nụ cười của bạn có thể làm tan biến mọi buồn phiền!",
+      "Luôn hạnh phúc, bình an và ngập tràn yêu thương!",
+      "PINO chúc các bạn luôn mạnh khoẻ! 🤩",
+      "Phụ nữ Việt Nam - Dịu dàng mà mạnh mẽ! 💪",
+      "Chúc chị em thành công rực rỡ trong sự nghiệp! ✨",
+      "Hãy là phiên bản tốt nhất của chính mình! 🌟",
+      "Gửi đến bạn những điều tuyệt vời nhất! 💝",
+      "Luôn giữ vững niềm tin và hy vọng! 🌈",
+      "Chúc mọi ước mơ đều trở thành hiện thực! 🎯",
+      "Bạn xứng đáng với mọi điều tốt đẹp! 🎁",
+      "20/10 - Ngày của những nàng tiên! 🧚‍♀️",
+      "Tỏa sáng theo cách riêng của bạn! ⭐",
+      "Chúc bạn luôn vui tươi và tràn đầy năng lượng! 🌸",
+      "Hãy yêu thương và trân trọng bản thân! 💖",
+      "Phụ nữ chính là niềm tự hào của đất nước! 🇻🇳",
+      "Chúc sức khỏe dồi dào, tuổi trẻ mãi mãi! 🌺",
+      "Ngày 20/10 thật ý nghĩa và ngập tràn hạnh phúc! 🎉",
+      "Gửi trọn yêu thương đến phái đẹp! 💕",
+      "Xinh đẹp, thông minh và tài năng! 👑",
+      "Chúc bạn luôn rực rỡ như ánh mặt trời! ☀️",
+      "Phụ nữ là những đóa hoa quý giá nhất! 🌹",
+      "Hãy tự tin tỏa sáng mỗi ngày! ✨",
+      "20/10 - Ngày tôn vinh vẻ đẹp Việt Nam! 🌷",
+      "Chúc mừng những người phụ nữ tuyệt vời! 🎊"
+    ];
+
+    const CONFIG = {
+      continuousSpawnInterval: 600,
+      fallDurationMs: 7000,
+      lotusShowDelay: 22000,
+      fadeAllDuration: 1000,
+      lotusAppearAt: 22500,
+      audioTotalDuration: 28000,
+      imageStartAt: 18000  // Bắt đầu rơi ảnh từ giây 18
+    };
+
+    let started = false;
+    let petalsCount = 0;
+    let petalTimer = null;
+    let continuousSpawnTimer = null;
+    let imageSpawnTimer = null;
+    let allWishes = [];
+    let wishIndex = 0;
+
+    const titleEl = document.getElementById('title');
+    const airspace = document.getElementById('airspace');
+    const lotusWrap = document.getElementById('lotusWrap');
+    const lotusSVG = document.getElementById('lotusSVG');
+    const lotusText = document.getElementById('lotusText');
+    const bgAudio = document.getElementById('bgAudio');
+
+    function rand(min,max){ return Math.random()*(max-min)+min; }
+    function irand(min,max){ return Math.floor(rand(min,max+1)); }
+
+    function tryPlayAudio(){
+      if(!bgAudio) return;
+      bgAudio.volume = 0.75;
+      bgAudio.loop = false;
+      bgAudio.play().catch(()=>{});
+    }
+
+    function spawnContinuousWish(text){
+      const el = document.createElement('div');
+      el.className = 'wish';
+      el.textContent = text;
+      const randomX = rand(15, 85);
+      el.style.left = `${randomX}%`;
+      el.style.transform = 'translateX(-50%) translateY(-18vh)';
+      el.style.opacity = 0;
+      airspace.appendChild(el);
+      allWishes.push(el);
+
+      requestAnimationFrame(()=> {
+        const vh = window.innerHeight;
+        const startY = -0.18 * vh;
+        const endY = vh + 100;
+        const dur = CONFIG.fallDurationMs;
+
+        const anim = el.animate([
+          { transform: `translateX(-50%) translateY(${startY}px) rotate(${rand(-6,6)}deg)`, opacity:0 },
+          { transform: `translateX(-50%) translateY(${(endY * 0.3).toFixed(2)}px) rotate(${rand(-8,8)}deg)`, opacity:1, offset: 0.15 },
+          { transform: `translateX(-50%) translateY(${endY.toFixed(2)}px) rotate(${rand(-10,10)}deg)`, opacity:0.8 }
+        ], {
+          duration: dur,
+          easing: 'linear',
+          fill: 'forwards'
+        });
+
+        const glowAt = dur * 0.4;
+        const glowRemoveAt = glowAt + 800;
+        const glowTimeout = setTimeout(()=> el.classList.add('centerGlow'), glowAt);
+        const glowRemoveTimeout = setTimeout(()=> el.classList.remove('centerGlow'), glowRemoveAt);
+
+        anim.onfinish = () => {
+          clearTimeout(glowTimeout);
+          clearTimeout(glowRemoveTimeout);
+          el.remove();
+          const idx = allWishes.indexOf(el);
+          if(idx > -1) allWishes.splice(idx, 1);
+        };
+
+        el.addEventListener('click', (ev)=> {
+          ev.stopPropagation();
+          const r = el.getBoundingClientRect();
+          fireworksAt(r.left + r.width/2, r.top + r.height/2);
+        });
+      });
+    }
+
+    function startContinuousWishes(){
+      continuousSpawnTimer = setInterval(()=> {
+        const text = WISHES[wishIndex % WISHES.length];
+        spawnContinuousWish(text);
+        wishIndex++;
+      }, CONFIG.continuousSpawnInterval);
+    }
+
+    function stopContinuousWishes(){
+      if(continuousSpawnTimer){
+        clearInterval(continuousSpawnTimer);
+        continuousSpawnTimer = null;
+      }
+    }
+
+    function fadeAllWishes(){
+      allWishes.forEach((el, i) => {
+        setTimeout(()=> {
+          if(el && el.parentNode){
+            el.animate([
+              { opacity: parseFloat(getComputedStyle(el).opacity) || 1 },
+              { opacity: 0, transform: `translateX(-50%) translateY(${parseFloat(el.style.top || 0) - 50}px) scale(0.8)` }
+            ], {
+              duration: CONFIG.fadeAllDuration,
+              easing: 'ease-out',
+              fill: 'forwards'
+            }).onfinish = ()=> el.remove();
+          }
+        }, i * 30);
+      });
+      allWishes = [];
+    }
+
+    function spawnFallingImage(){
+      const imageNum = irand(1, 4);
+      const img = document.createElement('img');
+      img.className = 'fallingImage';
+      img.src = `pino${imageNum}.jpg`;
+      
+      const startX = rand(10, 90);
+      img.style.left = startX + '%';
+      img.style.top = '-140px';
+      document.body.appendChild(img);
+
+      const duration = rand(4000, 7000);
+      const endX = rand(-80, 80);
+      const endY = window.innerHeight + 140;
+      const rotations = rand(2, 4) * 360;
+      
+      img.animate([
+        { transform: `translate(0,0) rotate(0deg) scale(0.3)`, opacity:0 },
+        { transform: `translate(${endX * 0.3}px, ${endY * 0.2}px) rotate(${rotations * 0.3}deg) scale(1)`, opacity:1, offset: 0.15 },
+        { transform: `translate(${endX}px, ${endY}px) rotate(${rotations}deg) scale(0.8)`, opacity:0.3 }
+      ], { 
+        duration: duration, 
+        easing:'cubic-bezier(0.25, 0.46, 0.45, 0.94)', 
+        fill:'forwards' 
+      }).onfinish = ()=> img.remove();
+    }
+
+    function startContinuousImages(){
+      const patterns = [
+        [3],           // Rơi 1 tấm
+        [3],           // Rơi 2 tấm cách nhau 0.5s
+        [3],           // Rơi 3 tấm cách nhau 0.5s
+        [2],           // Rơi 1 tấm
+        [2],           // Rơi 2 tấm
+        [3],           // Rơi 1 tấm
+        [3],           // Rơi 3 tấm
+        [5]            // Rơi 2 tấm
+      ];
+      
+      let patternIndex = 0;
+      
+      imageSpawnTimer = setInterval(()=> {
+        const count = patterns[patternIndex % patterns.length][0];
+        
+        // Spawn nhiều ảnh theo pattern
+        for(let i = 0; i < count; i++){
+          setTimeout(()=> spawnFallingImage(), i * 500);
+        }
+        
+        patternIndex++;
+      }, 1000); // Mỗi 1 giây spawn một pattern
+    }
+
+    function stopContinuousImages(){
+      if(imageSpawnTimer){
+        clearInterval(imageSpawnTimer);
+        imageSpawnTimer = null;
+      }
+    }
+
+    function showLotus(){
+      lotusWrap.setAttribute('aria-hidden','false');
+      lotusSVG.classList.add('show');
+      
+      // Delay text slightly for better effect
+      setTimeout(()=> {
+        lotusText.classList.add('show');
+      }, 600);
+
+      // Animate layers blooming outward
+      const outerPetals = lotusSVG.querySelectorAll('.outerLayer .lotusPetal');
+      const middlePetals = lotusSVG.querySelectorAll('.middleLayer .lotusPetal');
+      const innerPetals = lotusSVG.querySelectorAll('.innerLayer .lotusPetal');
+      const corePetals = lotusSVG.querySelectorAll('.coreLayer path');
+
+      const cx = window.innerWidth/2;
+      const cy = window.innerHeight/2 - 10;
+      
+      // More elaborate sparkles
+      for(let i=0;i<50;i++){
+        setTimeout(()=> createSparklesAt(cx + rand(-160,160), cy + rand(-120,120), 10), i*50);
+      }
+      
+      // Circular sparkle waves
+      for(let wave=0; wave<3; wave++){
+        setTimeout(()=> {
+          for(let i=0;i<16;i++){
+            const angle = (i / 16) * Math.PI * 2;
+            const dist = 200 + wave * 40;
+            const sx = cx + Math.cos(angle) * dist;
+            const sy = cy + Math.sin(angle) * dist;
+            createSparklesAt(sx, sy, 8);
+          }
+        }, 400 + wave * 400);
+      }
+    }
+
+    function spawnPetal(){
+      petalsCount++;
+      const el = document.createElement('div');
+      el.className = 'petal';
+      const w = Math.floor(rand(10,20));
+      const h = Math.floor(w * rand(1.0,1.6));
+      el.style.width = w + 'px';
+      el.style.height = h + 'px';
+      const colors = ['#ffd2e6','#fff2d0','#ffdfe6','#ffe6d9','#ffe6f5'];
+      el.style.background = `linear-gradient(180deg, ${colors[irand(0,colors.length-1)]}, rgba(255,255,255,0.08))`;
+      el.style.left = rand(30,70) + 'vw';
+      el.style.top = (-rand(6,20)) + 'vh';
+      document.body.appendChild(el);
+
+      const duration = rand(5200, 12000);
+      const endX = rand(-60, 60);
+      const endY = window.innerHeight + 80;
+      el.animate([
+        { transform: `translate(0,0) rotate(${rand(0,360)}deg)`, opacity:1 },
+        { transform: `translate(${endX}px, ${endY}px) rotate(${rand(360,1260)}deg)`, opacity:0.06 }
+      ], { duration: duration, easing:'linear', fill:'forwards' }).onfinish = ()=> {
+        el.remove();
+        petalsCount = Math.max(0, petalsCount - 1);
+      };
+    }
+
+    function startPetals(){
+      if(petalTimer) clearInterval(petalTimer);
+      petalTimer = setInterval(()=> {
+        if(petalsCount >= 36) return;
+        spawnPetal();
+      }, 700);
+    }
+
+    function createSparklesAt(x,y,count=10){
+      for(let i=0;i<count;i++){
+        const sp = document.createElement('div');
+        sp.className = 'spark';
+        sp.style.left = x + 'px';
+        sp.style.top = y + 'px';
+        const colors = ['#ffd2e6','#fff2d0','#ffb8d9','#fff2f0'];
+        sp.style.background = `radial-gradient(circle at 30% 30%, #fff, ${colors[irand(0,colors.length-1)]} 40%, rgba(255,255,255,0) 70%)`;
+        document.body.appendChild(sp);
+        const ang = rand(0, Math.PI*2);
+        const dist = rand(30, 200);
+        const dx = Math.cos(ang)*dist;
+        const dy = Math.sin(ang)*dist;
+        const dur = rand(700, 1400);
+        sp.animate([
+          { transform: 'translate(0,0) scale(.6)', opacity:1 },
+          { transform: `translate(${dx}px, ${dy}px) scale(1.4)`, opacity:0 }
+        ], { duration: dur, easing:'cubic-bezier(.2,.9,.3,1)', fill:'forwards' }).onfinish = ()=> sp.remove();
+      }
+    }
+
+    function fireworksAt(x,y){
+      for(let r=0;r<6;r++){
+        setTimeout(()=> createSparklesAt(x,y, 16 + irand(0,8)), r*100);
+      }
+    }
+
+    function startSequence(){
+      if(started) return;
+      started = true;
+      startPetals();
+      tryPlayAudio();
+      startContinuousWishes();
+
+      // Bắt đầu rơi ảnh từ giây 18
+      setTimeout(()=> {
+        startContinuousImages();
+      }, CONFIG.imageStartAt);
+
+      setTimeout(()=> {
+        stopContinuousWishes();
+        fadeAllWishes();
+      }, CONFIG.lotusShowDelay);
+
+      setTimeout(()=> {
+        showLotus();
+      }, CONFIG.lotusAppearAt);
+
+      setTimeout(()=> {
+        stopContinuousImages();
+        lotusText.classList.remove('show');
+        lotusSVG.classList.remove('show');
+        setTimeout(()=> {
+          lotusWrap.setAttribute('aria-hidden','true');
+          
+          setTimeout(()=> {
+            wishIndex = 0;
+            tryPlayAudio();
+            startContinuousWishes();
+            
+            // Bắt đầu lại rơi ảnh từ giây 18
+            setTimeout(()=> {
+              startContinuousImages();
+            }, CONFIG.imageStartAt);
+
+            setTimeout(()=> {
+              stopContinuousWishes();
+              fadeAllWishes();
+            }, CONFIG.lotusShowDelay);
+
+            setTimeout(()=> {
+              showLotus();
+            }, CONFIG.lotusAppearAt);
+
+            setTimeout(()=> {
+              stopContinuousImages();
+              lotusText.classList.remove('show');
+              lotusSVG.classList.remove('show');
+              setTimeout(()=> {
+                lotusWrap.setAttribute('aria-hidden','true');
+                // Tiếp tục lặp vô hạn
+                setTimeout(()=> startSequence(), 2000);
+              }, 1000);
+            }, CONFIG.audioTotalDuration);
+            
+          }, 1500);
+        }, 1000);
+      }, CONFIG.audioTotalDuration);
+    }
+
+    document.addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t === titleEl || titleEl.contains(t)){
+        if(!started){
+          titleEl.classList.add('fadeHide');
+          setTimeout(()=> { 
+            titleEl.style.display = 'none'; 
+            tryPlayAudio(); 
+            startSequence(); 
+          }, 900);
+          fireworksAt(window.innerWidth/2, window.innerHeight/2);
+        }
+        return;
+      }
+      if(t.classList && t.classList.contains('wish')) return;
+      fireworksAt(e.clientX, e.clientY);
+    });
+
+    titleEl.addEventListener('keydown', (e)=> { 
+      if(e.key === 'Enter' || e.key === ' ') { 
+        e.preventDefault(); 
+        titleEl.click(); 
+      } 
+    });
+
+    (function prelude(){
+      for(let i=0;i<6;i++) setTimeout(spawnPetal, i*220);
+    })();
+
+    console.info('PINO 20/10 — Bấm vào tiêu đề để bắt đầu. Đặt file pino.mp3 và pino1.jpg đến pino4.jpg cùng thư mục.');
+  </script>
+</body>
+</html>
